@@ -1,5 +1,4 @@
-from Core.File.FileUtils import FileUtils
-from Core.Filter.FilterEntitySingleBase import FilterEntitySingleBase
+from Src.Core.Filter.FilterEntitySingleBase import FilterEntitySingleBase
 
 
 class FeSingleGeneAnnotation(FilterEntitySingleBase):
@@ -10,8 +9,8 @@ class FeSingleGeneAnnotation(FilterEntitySingleBase):
 
         :param kargs: 
         """
-        if not FileUtils.is_file(kargs.get('file', None)):
-            raise FileNotFoundError('File not found.')
+        if not kargs.get('file'):
+            raise ValueError("The 'file' is required.")
 
         self.__file = kargs.get('file')
 

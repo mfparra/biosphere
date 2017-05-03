@@ -1,12 +1,12 @@
+import re
 from os.path import join
 
-import re
+from Src.Core.File.FileUtils import FileUtils
 
-from BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
     GeneAnnotationFileRepositoryBase
-from BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
-from BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
-from Core.File.FileUtils import FileUtils
 
 
 class GeneAnnotationFileRepository(GeneAnnotationFileRepositoryBase):
@@ -31,7 +31,7 @@ class GeneAnnotationFileRepository(GeneAnnotationFileRepositoryBase):
         :param fe_gene_annotation: 
         :return: 
         """
-        ga_file = FileUtils.read(join(self._root_path, self._gene_directory_name, fe_gene_annotation.file))
+        ga_file = FileUtils.read(join(self._directory, fe_gene_annotation.file))
         gene_annotations = []
 
         for gene in ga_file.split('\n'):

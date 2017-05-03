@@ -1,7 +1,8 @@
 from abc import ABCMeta, abstractmethod
 
-from BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
-from Core.Data.FileRepositoryBase import FileRepositoryBase
+from Src.Core.Data.FileRepositoryBase import FileRepositoryBase
+
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
 
 
 class GeneAnnotationFileRepositoryBase(FileRepositoryBase, metaclass=ABCMeta):

@@ -1,4 +1,4 @@
-from BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
+from Src.BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
 
 
 class MicroRNAImporter(BioDataImporterBase):

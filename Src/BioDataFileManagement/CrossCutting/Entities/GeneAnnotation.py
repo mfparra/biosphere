@@ -13,11 +13,16 @@ class GeneAnnotation(object):
         if not kargs.get('id_entrez'):
             raise ValueError("The 'id_entrez' is required.")
 
+        if kargs.get('id_entrez') < 0:
+            raise ValueError("The 'id_entrez' is invalid value.")
+
         self.__symbol = kargs.get('symbol').upper()
         self.__id_entrez = kargs.get('id_entrez')
 
-        if self.__synonyms_genes:
-            self.__synonyms_genes = [g.upper() for g in kargs.get("synonyms_genes", [])]
+        if kargs.get('synonyms_genes', None):
+            self.__synonyms_genes = [g.upper() for g in kargs.get('synonyms_genes')]
+        else:
+            self.__synonyms_genes = []
 
     @property
     def symbol(self) -> str:

@@ -1,6 +1,6 @@
 from abc import ABCMeta
 
-from Core.File.FileUtils import FileUtils
+from Src.Core.File.FileUtils import FileUtils
 
 
 class FileRepositoryBase(metaclass=ABCMeta):
