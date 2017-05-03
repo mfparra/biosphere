@@ -18,6 +18,11 @@ class MyTestCase(unittest.TestCase):
 
         self.assertListEqual(gene_annotations[1].synonyms_genes, ['ABD', 'RHJ'])
 
+    def test_instance_fail(self):
+        self.assertRaises(ValueError, GeneAnnotation)
+        self.assertRaises(ValueError, GeneAnnotation, **{'symbol':'abc', 'synonyms_genes':None})
+        self.assertRaises(ValueError, GeneAnnotation, **{'id_entrez': 10, 'synonyms_genes': None})
+
 
 if __name__ == '__main__':
     unittest.main()
