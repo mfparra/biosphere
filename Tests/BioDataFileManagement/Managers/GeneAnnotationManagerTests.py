@@ -5,7 +5,7 @@ from os import path
 
 from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
 from Src.BioDataFileManagement.Managers.GeneAnnotionFileManager import GeneAnnotationFileManager
-from Tests.BioDataFileManagement.GeneAnnotationFileRepositoryMock import GeneAnnotaionFileRepositoryMock
+from Tests.BioDataFileManagement.Managers.GeneAnnotationFileRepositoryMock import GeneAnnotaionFileRepositoryMock
 
 
 class GeneAnnotationManagerTests(unittest.TestCase):
