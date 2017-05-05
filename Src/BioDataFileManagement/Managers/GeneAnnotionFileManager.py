@@ -29,5 +29,5 @@ class GeneAnnotationFileManager(object):
                                          synonyms_genes=None if '-' in g.synonyms_genes else g.synonyms_genes)
                           for g in fe_gene.result]
 
-
+        fe_gene.result = list(set(fe_gene.result))
         return fe_gene

@@ -21,8 +21,18 @@ class GeneAnnotation(object):
 
         if kargs.get('synonyms_genes', None):
             self.__synonyms_genes = [g.upper() for g in kargs.get('synonyms_genes')]
+            self.__synonyms_genes = list(set(self.__synonyms_genes))
         else:
             self.__synonyms_genes = []
+
+    def __hash__(self):
+        return hash((self.__symbol, self.id_entrez, hash(''.join(self.__synonyms_genes))))
+
+    def __eq__(self, other):
+        return isinstance(other, GeneAnnotation) and \
+               self.__symbol == other.symbol and \
+               self.__id_entrez == other.id_entrez and \
+               set(self.__synonyms_genes) == set(other.synonyms_genes)
 
     @property
     def symbol(self) -> str:

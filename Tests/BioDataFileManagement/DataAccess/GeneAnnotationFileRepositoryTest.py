@@ -8,7 +8,7 @@ from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation impor
 from Src.BioDataFileManagement.DataAccess.GeneAnnotationFileRepository import GeneAnnotationFileRepository
 
 
-class MyTestCase(unittest.TestCase):
+class GeneAnnotationFileRepositoryTest(unittest.TestCase):
     def setUp(self):
         self.__repository_dir = tempfile.mkdtemp()
         self.__content = '#tax_id	GeneID	Symbol	LocusTag	Synonyms	dbXrefs	chromosome	map_location	description	type_of_gene	Symbol_from_nomenclature_authority	Full_name_from_nomenclature_authority	Nomenclature_status	Other_designations	Modification_date\n' \
