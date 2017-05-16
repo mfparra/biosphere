@@ -3,7 +3,7 @@ import tempfile
 import unittest
 from os import path
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTarget import FeSingleMicroRnaGeneTarget
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTargetFile import FeSingleMicroRnaGeneTargetFile
 from Src.BioDataFileManagement.Managers.MicroRnaGeneTargetFileManager import MicroRnaGeneTargetFileManager
 from Tests.BioDataFileManagement.Managers.MicroRnaGeneTargetFileRepositoryMock import \
     MicroRnaGeneTargetFileRepositoryMock
@@ -21,7 +21,7 @@ class MicroRnaGeneTargetManagerTests(unittest.TestCase):
             file_temp.write('content')
 
         mock = MicroRnaGeneTargetFileRepositoryMock(self.__repository_dir)
-        filter = FeSingleMicroRnaGeneTarget(file='microrna_gene_target.txt')
+        filter = FeSingleMicroRnaGeneTargetFile(file='microrna_gene_target.txt')
         manager = MicroRnaGeneTargetFileManager(mock)
 
         filter_result = manager.get(filter)

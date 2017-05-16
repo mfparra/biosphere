@@ -1,7 +1,7 @@
 from typing import List
 
 
-class GeneAnnotation(object):
+class GeneAnnotationFile(object):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -26,13 +26,12 @@ class GeneAnnotation(object):
             self.__synonyms_genes = []
 
     def __hash__(self):
-        return hash((self.__symbol, self.id_entrez, hash(''.join(self.__synonyms_genes))))
+        return hash((self.__symbol, self.id_entrez))
 
     def __eq__(self, other):
-        return isinstance(other, GeneAnnotation) and \
+        return isinstance(other, GeneAnnotationFile) and \
                self.__symbol == other.symbol and \
-               self.__id_entrez == other.id_entrez and \
-               set(self.__synonyms_genes) == set(other.synonyms_genes)
+               self.__id_entrez == other.id_entrez
 
     @property
     def symbol(self) -> str:

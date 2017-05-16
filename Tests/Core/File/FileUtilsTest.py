@@ -29,6 +29,64 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(FileUtils.read(path.join(self.__repository_dir, 'gene_annotation.txt')), 'content')
 
+    def test_get_files(self):
+        for i in range(0, 10):
+            tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.txt', delete=False)
+            tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.gif', delete=False)
+
+        self.assertEqual(len(FileUtils.get(self.__repository_dir, '\S+.*\.txt')), 10)
+
+    def test_get_files_with_pagginate(self):
+        for i in range(0, 10):
+            tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.txt', delete=False)
+
+        current_page = 0
+        page_size = 3
+        page_count = 0
+        result_list_final = []
+
+        current_page, \
+        page_count, \
+        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+
+        result_list_final.extend(result_list)
+
+        self.assertEqual(current_page, 1)
+        self.assertEqual(page_count, 4)
+        self.assertEqual(len(result_list), 3)
+
+        current_page, \
+        page_count, \
+        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+
+        result_list_final.extend(result_list)
+
+        self.assertEqual(current_page, 2)
+        self.assertEqual(page_count, 4)
+        self.assertEqual(len(result_list), 3)
+
+        current_page, \
+        page_count, \
+        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+
+        result_list_final.extend(result_list)
+
+        self.assertEqual(current_page, 3)
+        self.assertEqual(page_count, 4)
+        self.assertEqual(len(result_list), 3)
+
+        current_page, \
+        page_count, \
+        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+
+        result_list_final.extend(result_list)
+
+        self.assertEqual(current_page, 4)
+        self.assertEqual(page_count, 4)
+        self.assertEqual(len(result_list), 1)
+        self.assertEqual(len(result_list_final), 10)
+        self.assertEqual(len(list(set(result_list_final))), 10)
+
 
 if __name__ == '__main__':
     unittest.main()

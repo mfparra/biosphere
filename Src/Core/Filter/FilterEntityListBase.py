@@ -10,7 +10,6 @@ class FilterEntityListBase(metaclass=ABCMeta):
         
         :param kargs: 
         """
-
         self.__current_page = kargs.get('current_page', 0)
         self.__page_size = kargs.get('page_size', 10)
         self.__page_count = kargs.get('page_count', 0)

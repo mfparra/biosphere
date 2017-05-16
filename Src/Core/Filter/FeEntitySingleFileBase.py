@@ -3,7 +3,7 @@ from abc import ABCMeta
 from Src.Core.Filter.FilterEntitySingleBase import FilterEntitySingleBase
 
 
-class FeEntitySingleFile(FilterEntitySingleBase, metaclass=ABCMeta):
+class FeEntitySingleFileBase(FilterEntitySingleBase, metaclass=ABCMeta):
     """description of class"""
 
     def __init__(self, **kargs):

@@ -1,7 +1,7 @@
-from Src.Core.Filter.FeEntitySingleFile import FeEntitySingleFile
+from Src.Core.Filter.FeEntitySingleFileBase import FeEntitySingleFileBase
 
 
-class FeSingleGeneAnnotation(FeEntitySingleFile):
+class FeSingleGeneAnnotationFile(FeEntitySingleFileBase):
     """description of class"""
 
     def __init__(self, **kargs):

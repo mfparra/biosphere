@@ -4,7 +4,7 @@ import unittest
 
 from os import path
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
 from Src.BioDataFileManagement.DataAccess.GeneAnnotationFileRepository import GeneAnnotationFileRepository
 
 
@@ -58,7 +58,7 @@ class GeneAnnotationFileRepositoryTest(unittest.TestCase):
             file_temp.write(self.__content)
 
         repository = GeneAnnotationFileRepository(self.__repository_dir)
-        gene_annotations = repository.get((FeSingleGeneAnnotation(file='gene_annotation.txt')))
+        gene_annotations = repository.get((FeSingleGeneAnnotationFile(file='gene_annotation.txt')))
 
         self.assertEqual(len(gene_annotations.result), 17)
         self.assertEqual(

@@ -3,9 +3,9 @@ from os.path import join
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.MicroRnaGeneTargetFileRepositoryBase import \
     MicroRnaGeneTargetFileRepositoryBase
-from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
-from Src.BioDataFileManagement.CrossCutting.Entities.MicroRnaGeneTarget import MicroRnaGeneTarget
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTarget import FeSingleMicroRnaGeneTarget
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
+from Src.BioDataFileManagement.CrossCutting.Entities.MicroRnaGeneTargetFile import MicroRnaGeneTargetFile
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTargetFile import FeSingleMicroRnaGeneTargetFile
 from Src.Core.File.FileUtils import FileUtils
 
 
@@ -22,7 +22,7 @@ class MicroRnaGeneTargetFileRepository(MicroRnaGeneTargetFileRepositoryBase):
                                ')\t(?P<target_entrez_gene_id>\d+)\t(?P<species_target_gene>[^\t]+)\t(?P<experiments>\S+'
                                ')\t(?P<support_type>[^\t]+)\t(?P<references_pmid>\d+)')
 
-    def get(self, fe_target: FeSingleMicroRnaGeneTarget) -> FeSingleMicroRnaGeneTarget:
+    def get(self, fe_target: FeSingleMicroRnaGeneTargetFile) -> FeSingleMicroRnaGeneTargetFile:
         """
         
         :param fe_target: 
@@ -38,10 +38,10 @@ class MicroRnaGeneTargetFileRepository(MicroRnaGeneTargetFileRepositoryBase):
                 continue
 
             target_match = target_match.groupdict()
-            microrna_gene_targets.append(MicroRnaGeneTarget(microrna_symbol=target_match['mirna'],
-                                                            gene_target=GeneAnnotation(
-                                                                id_entrez=int(target_match['target_entrez_gene_id']),
-                                                                symbol=target_match['target_gene'])))
+            microrna_gene_targets.append(MicroRnaGeneTargetFile(microrna_symbol=target_match['mirna'],
+                                                                gene_target=GeneAnnotationFile(
+                                                                    id_entrez=int(target_match['target_entrez_gene_id']),
+                                                                    symbol=target_match['target_gene'])))
 
         fe_target.result = microrna_gene_targets
         return fe_target

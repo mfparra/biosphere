@@ -1,6 +1,6 @@
 from Src.BioDataFileManagement.CrossCutting.Contracts.MicroRnaGeneTargetFileRepositoryBase import \
     MicroRnaGeneTargetFileRepositoryBase
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTarget import FeSingleMicroRnaGeneTarget
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTargetFile import FeSingleMicroRnaGeneTargetFile
 
 
 class MicroRnaGeneTargetFileManager(object):
@@ -16,7 +16,7 @@ class MicroRnaGeneTargetFileManager(object):
 
         self.__repository = repository
 
-    def get(self, fe_target: FeSingleMicroRnaGeneTarget) -> FeSingleMicroRnaGeneTarget:
+    def get(self, fe_target: FeSingleMicroRnaGeneTargetFile) -> FeSingleMicroRnaGeneTargetFile:
         """
         
         :param fe_target: 

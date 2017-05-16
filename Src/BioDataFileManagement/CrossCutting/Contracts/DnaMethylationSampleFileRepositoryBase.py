@@ -1,11 +1,10 @@
 from abc import ABCMeta, abstractmethod
 
+from Src.BioDataFileManagement.CrossCutting.Filters.FeListDnaMethylationSampleFile import FeListDnaMethylationSampleFile
 from Src.Core.Data.FileRepositoryBase import FileRepositoryBase
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
 
-
-class GeneAnnotationFileRepositoryBase(FileRepositoryBase, metaclass=ABCMeta):
+class DnaMethylationSampleFileRepositoryBase(FileRepositoryBase, metaclass=ABCMeta):
     """
     Class responsible for manipulates gene annotation file
     """
@@ -19,10 +18,10 @@ class GeneAnnotationFileRepositoryBase(FileRepositoryBase, metaclass=ABCMeta):
         super().__init__(directory)
 
     @abstractmethod
-    def get(self, fe_gene_annotation: FeSingleGeneAnnotationFile) -> FeSingleGeneAnnotationFile:
+    def get(self, fe_dna_methylation: FeListDnaMethylationSampleFile) -> FeListDnaMethylationSampleFile:
         """
 
-        :param fe_gene_annotation: 
+        :param fe_dna_methylation: 
         :return: 
         """
         pass

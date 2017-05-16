@@ -4,7 +4,7 @@ import unittest
 
 from os import path
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTarget import FeSingleMicroRnaGeneTarget
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleMicroRnaGeneTargetFile import FeSingleMicroRnaGeneTargetFile
 from Src.BioDataFileManagement.DataAccess.MicroRnaGeneTargetFileRepository import MicroRnaGeneTargetFileRepository
 
 
@@ -37,7 +37,7 @@ class MicroRnaGeneTargetFileRepositoryTest(unittest.TestCase):
             file_temp.write(self.__content)
 
         repository = MicroRnaGeneTargetFileRepository(self.__repository_dir)
-        targets = repository.get((FeSingleMicroRnaGeneTarget(file='microrna_gene_target.txt')))
+        targets = repository.get((FeSingleMicroRnaGeneTargetFile(file='microrna_gene_target.txt')))
 
         self.assertEqual(len(targets.result), 16)
         self.assertEqual(

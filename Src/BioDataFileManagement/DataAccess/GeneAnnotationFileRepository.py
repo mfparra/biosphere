@@ -3,8 +3,8 @@ from os.path import join
 
 from Src.Core.File.FileUtils import FileUtils
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
-from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
 from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
     GeneAnnotationFileRepositoryBase
 
@@ -25,7 +25,7 @@ class GeneAnnotationFileRepository(GeneAnnotationFileRepositoryBase):
                                '?P<full_name_from_nomenclature_authority>[^\t]+)\t(?P<nomenclature_status>\S)\t('
                                '?P<other_designations>[^\t]+)\t(?P<modification_date>\d{8})')
 
-    def get(self, fe_gene_annotation: FeSingleGeneAnnotation) -> FeSingleGeneAnnotation:
+    def get(self, fe_gene_annotation: FeSingleGeneAnnotationFile) -> FeSingleGeneAnnotationFile:
         """
         
         :param fe_gene_annotation: 
@@ -41,9 +41,9 @@ class GeneAnnotationFileRepository(GeneAnnotationFileRepositoryBase):
                 continue
 
             gene_match = gene_match.groupdict()
-            gene_annotations.append(GeneAnnotation(id_entrez=int(gene_match['gene_id']),
-                                                   symbol=gene_match['symbol'],
-                                                   synonyms_genes=gene_match['synonyms'].split('|')))
+            gene_annotations.append(GeneAnnotationFile(id_entrez=int(gene_match['gene_id']),
+                                                       symbol=gene_match['symbol'],
+                                                       synonyms_genes=gene_match['synonyms'].split('|')))
 
         fe_gene_annotation.result = gene_annotations
         return fe_gene_annotation

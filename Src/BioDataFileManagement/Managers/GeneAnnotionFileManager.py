@@ -1,5 +1,5 @@
-from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
-from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotation import FeSingleGeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
+from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
 from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
     GeneAnnotationFileRepositoryBase
 
@@ -17,16 +17,16 @@ class GeneAnnotationFileManager(object):
 
         self.__repository = repository
 
-    def get(self, fe_gene: FeSingleGeneAnnotation) -> FeSingleGeneAnnotation:
+    def get(self, fe_gene: FeSingleGeneAnnotationFile) -> FeSingleGeneAnnotationFile:
         """
         
         :param fe_gene: 
         :return: 
         """
         fe_gene = self.__repository.get(fe_gene)
-        fe_gene.result = [GeneAnnotation(id_entrez=g.id_entrez,
-                                         symbol=g.symbol,
-                                         synonyms_genes=None if '-' in g.synonyms_genes else g.synonyms_genes)
+        fe_gene.result = [GeneAnnotationFile(id_entrez=g.id_entrez,
+                                             symbol=g.symbol,
+                                             synonyms_genes=None if '-' in g.synonyms_genes else g.synonyms_genes)
                           for g in fe_gene.result]
 
         fe_gene.result = list(set(fe_gene.result))

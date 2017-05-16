@@ -1,7 +1,7 @@
-from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotation import GeneAnnotation
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
 
 
-class MicroRnaGeneTarget(object):
+class MicroRnaGeneTargetFile(object):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -20,7 +20,7 @@ class MicroRnaGeneTarget(object):
         return hash((self.__microrna_symbol, self.__gene_target))
 
     def __eq__(self, other):
-        return isinstance(other, MicroRnaGeneTarget) and \
+        return isinstance(other, MicroRnaGeneTargetFile) and \
                self.__microrna_symbol == other.microrna_symbol and \
                self.__gene_target == other.gene_target
 
@@ -30,6 +30,6 @@ class MicroRnaGeneTarget(object):
         return self.__microrna_symbol
 
     @property
-    def gene_target(self) -> GeneAnnotation:
+    def gene_target(self) -> GeneAnnotationFile:
         """description of property"""
         return self.__gene_target

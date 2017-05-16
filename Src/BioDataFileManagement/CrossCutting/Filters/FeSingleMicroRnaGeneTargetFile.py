@@ -1,7 +1,7 @@
-from Src.Core.Filter.FeEntitySingleFile import FeEntitySingleFile
+from Src.Core.Filter.FeEntitySingleFileBase import FeEntitySingleFileBase
 
 
-class FeSingleMicroRnaGeneTarget(FeEntitySingleFile):
+class FeSingleMicroRnaGeneTargetFile(FeEntitySingleFileBase):
     """description of class"""
 
     def __init__(self, **kargs):
