@@ -29,14 +29,14 @@ class MyTestCase(unittest.TestCase):
 
         self.assertEqual(FileUtils.read(path.join(self.__repository_dir, 'gene_annotation.txt')), 'content')
 
-    def test_get_files(self):
+    def test_read_all_files(self):
         for i in range(0, 10):
             tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.txt', delete=False)
             tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.gif', delete=False)
 
-        self.assertEqual(len(FileUtils.get(self.__repository_dir, '\S+.*\.txt')), 10)
+        files = FileUtils.read_all(self.__repository_dir, '\S+.*\.txt')
 
-    def test_get_files_with_pagginate(self):
+    def test_read_files_with_pagginate(self):
         for i in range(0, 10):
             tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.txt', delete=False)
 
@@ -47,7 +47,7 @@ class MyTestCase(unittest.TestCase):
 
         current_page, \
         page_count, \
-        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+        result_list = FileUtils.read_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
 
         result_list_final.extend(result_list)
 
@@ -57,7 +57,7 @@ class MyTestCase(unittest.TestCase):
 
         current_page, \
         page_count, \
-        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+        result_list = FileUtils.read_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
 
         result_list_final.extend(result_list)
 
@@ -67,7 +67,7 @@ class MyTestCase(unittest.TestCase):
 
         current_page, \
         page_count, \
-        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+        result_list = FileUtils.read_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
 
         result_list_final.extend(result_list)
 
@@ -77,7 +77,7 @@ class MyTestCase(unittest.TestCase):
 
         current_page, \
         page_count, \
-        result_list = FileUtils.get_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
+        result_list = FileUtils.read_with_pagginate(self.__repository_dir, page_size, current_page, page_count)
 
         result_list_final.extend(result_list)
 
@@ -86,6 +86,13 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(len(result_list), 1)
         self.assertEqual(len(result_list_final), 10)
         self.assertEqual(len(list(set(result_list_final))), 10)
+
+    def test_get_files(self):
+        for i in range(0, 10):
+            tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.txt', delete=False)
+            tempfile.NamedTemporaryFile(dir=self.__repository_dir, suffix='.gif', delete=False)
+
+        self.assertEqual(len(FileUtils.get(self.__repository_dir, '\S+.*\.txt')), 10)
 
 
 if __name__ == '__main__':

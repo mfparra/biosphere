@@ -18,7 +18,7 @@ class DnaMethylationSampleFileRepository(DnaMethylationSampleFileRepositoryBase)
         :param directory: 
         """
         super().__init__(directory)
-        self.__re = re.compile('^(?P<gene_symbol>\S+)\t(?P<control_value>\d+)\t(?P<case_value>\d)')
+        self.__re = re.compile('^(?P<gene_symbol>\S+)\t(?P<control_value>\d+\.?\d+)\t(?P<case_value>\\d+\.?\d+)')
 
     def get(self, fe_dna_methylation: FeListDnaMethylationSampleFile) -> FeListDnaMethylationSampleFile:
         """
@@ -29,15 +29,15 @@ class DnaMethylationSampleFileRepository(DnaMethylationSampleFileRepositoryBase)
         result_list = None
 
         if not fe_dna_methylation.is_paged:
-            result_list = FileUtils.get(self._directory, fe_dna_methylation.pattern)
+            result_list = FileUtils.read_all(self._directory, fe_dna_methylation.pattern)
         else:
             fe_dna_methylation.current_page, \
             fe_dna_methylation. page_count, \
-            result_list = FileUtils.get_with_pagginate(self._directory, fe_dna_methylation.page_size,
-                                                       fe_dna_methylation.current_page, fe_dna_methylation. page_count,
-                                                       '\S+.*\.txt')
+            result_list = FileUtils.read_with_pagginate(self._directory, fe_dna_methylation.page_size,
+                                                        fe_dna_methylation.current_page, fe_dna_methylation. page_count,
+                                                        '\S+.*\.txt')
 
-        for patient_id, dna_methylation_levels in result_list.iteritems():
+        for patient_id, dna_methylation_levels in result_list.items():
             levels = []
 
             for dna_methylation_level in dna_methylation_levels.split('\n'):
@@ -47,11 +47,11 @@ class DnaMethylationSampleFileRepository(DnaMethylationSampleFileRepositoryBase)
                     continue
 
                 dm_level_match = dm_level_match.groupdict()
-                levels.append(DnaMethylationLevel(gene_symbol= dm_level_match['gene_symbol']),
+                levels.append(DnaMethylationLevel(gene_symbol= dm_level_match['gene_symbol'],
                                                   control_value=float(dm_level_match['control_value']),
-                                                  case_value=float(dm_level_match['case_value']))
+                                                  case_value=float(dm_level_match['case_value'])))
 
-                fe_dna_methylation.result_list.append(DnaMethylationSampleFile(patient_id=patient_id,
-                                                                               dna_methylation_levels=levels))
+            fe_dna_methylation.result_list.append(DnaMethylationSampleFile(patient_id=patient_id,
+                                                                           dna_methylation_levels=levels))
 
         return fe_dna_methylation

@@ -18,6 +18,8 @@ class DnaMethylationSampleFile(BiologicalFileSampleBase):
 
         if not self.__dna_methylation_levels:
             raise ValueError("The 'dna_methylation_levels' is required.")
+        else:
+            self.__dna_methylation_levels = list(set(self.__dna_methylation_levels))
 
     def __hash__(self):
         return hash(self.patient_id)
