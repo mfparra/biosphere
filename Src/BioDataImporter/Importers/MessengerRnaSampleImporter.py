@@ -1,7 +1,7 @@
 from Src.BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
 
 
-class MessengerRNAImporter(BioDataImporterBase):
+class MessengerRnaSampleImporter(BioDataImporterBase):
     """
     This class is responsible for importing Messenger RNA samples.
     """

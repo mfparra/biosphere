@@ -1,9 +1,9 @@
 from Src.BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
 
 
-class MicroRNAImporter(BioDataImporterBase):
+class MicroRnaGeneTargetImporter(BioDataImporterBase):
     """
-    This class is responsible for importing microRNA information.
+    This class is responsible for importing microRna gene target information.
     """
 
     def execute(self):

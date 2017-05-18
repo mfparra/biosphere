@@ -1,7 +1,7 @@
 from Src.BioDataImporter.Contracts import BioDataImporterBase
 
 
-class GeneImporter(BioDataImporterBase):
+class GeneAnnotationImporter(BioDataImporterBase):
     """
     This class is responsible for importing gene information.
     """

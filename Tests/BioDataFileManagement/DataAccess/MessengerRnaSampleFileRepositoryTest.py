@@ -4,11 +4,11 @@ import unittest
 
 from os import path
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeListDnaMethylationSampleFile import FeListDnaMethylationSampleFile
-from Src.BioDataFileManagement.DataAccess.DnaMethylationSampleFileRepository import DnaMethylationSampleFileRepository
+from Src.BioDataFileManagement.CrossCutting.Filters.FeListMessengerRnaSampleFile import FeListMessengerRnaSampleFile
+from Src.BioDataFileManagement.DataAccess.MessengerRnaSampleFileRepository import MessengerRnaSampleFileRepository
 
 
-class DnaMethylationSampleFileRepositoryTest(unittest.TestCase):
+class MessengerRnaSampleFileRepositoryTest(unittest.TestCase):
     def setUp(self):
         self.__repository_dir = tempfile.mkdtemp()
         self.__content = 'gene	control	case\n' \
@@ -40,16 +40,16 @@ class DnaMethylationSampleFileRepositoryTest(unittest.TestCase):
         shutil.rmtree(self.__repository_dir)
 
     def test_get(self):
-        with open(path.join(self.__repository_dir, 'dna_methylation.txt'), 'w') as file_temp:
+        with open(path.join(self.__repository_dir, 'messenger_rna.txt'), 'w') as file_temp:
             file_temp.write(self.__content)
 
-        repository = DnaMethylationSampleFileRepository(self.__repository_dir)
-        filter = repository.get(FeListDnaMethylationSampleFile())
+        repository = MessengerRnaSampleFileRepository(self.__repository_dir)
+        filter = repository.get(FeListMessengerRnaSampleFile())
 
         self.assertEqual(len(filter.result_list), 1)
 
         self.assertTrue(
-            len([l for l in filter.result_list[0].dna_methylation_levels
+            len([l for l in filter.result_list[0].gene_expression_levels
                  if l.gene_symbol in ['1-Dec', '1-Mar', '1-Sep', '10-Mar', '11-Mar', '11-Sep', '13-Sep', '14-Sep', '3-Mar',
                                       '4-Mar', '5-Mar', '5-Sep', '6-Mar', '7-Mar', '8-Sep', '9-Mar', '9-Sep', 'A1BG', 'A1CF',
                                       'A2BP1', 'A2LD1', 'A2M', 'A2ML1']]), 23)

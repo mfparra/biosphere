@@ -1,7 +1,7 @@
 from Src.BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
 
 
-class MicroRNAImporter(BioDataImporterBase):
+class MicroRnaSampleImporter(BioDataImporterBase):
     """
     This class is responsible for importing microRNA samples.
     """
