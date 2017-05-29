@@ -2,7 +2,7 @@ from abc import ABCMeta, abstractmethod
 from typing import List, Dict
 
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
-from Src.BioDataManagement.CrossCutting.Filters.FilterListGeneAnnotation import FeListGeneAnnotation
+from Src.BioDataManagement.CrossCutting.Filters.FeListGeneAnnotation import FeListGeneAnnotation
 from Src.Core.Data.MongoRepositoryBase import MongoRepositoryBase
 
 

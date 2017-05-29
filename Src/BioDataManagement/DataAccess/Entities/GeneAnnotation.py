@@ -11,7 +11,6 @@ class GeneAnnotation(EntityBase):
 
         :param kargs: 
         """
-
         self.__id_entrez = kargs.get('id_entrez')
         self.__symbol = kargs.get('symbol')
         self.__synonyms_genes = kargs.get('synonyms_genes', [])
@@ -66,17 +65,14 @@ class GeneAnnotation(EntityBase):
         self.__synonyms_genes = value
 
     def validate(self):
-        if self.__id_entrez:
+        if not self.__id_entrez:
             raise ValueError('Id entrez is required.')
         if self.__id_entrez <= 0:
             raise ValueError('Id entrez requires value greater than 0.')
-        if isinstance(self.__id_entrez, int):
-            raise TypeError('Invalid type. Id entrez requires integer type value.')
 
-        if self.__symbol:
+        if not self.__symbol:
             raise ValueError('Symbol is required.')
-        if isinstance(self.__symbol, str):
-            raise TypeError('Invalid type. Symbol requires string type value.')
+
 
     def as_dict(self):
         return {'id_entrez': self.__id_entrez,

@@ -1,7 +1,5 @@
 import threading
 
-from mapper.object_mapper import ObjectMapper
-
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
 from Src.BioDataManagement.DataAccess.Entities.GeneAnnotation import GeneAnnotation
 
@@ -11,7 +9,7 @@ class Mapper(object):
     __lock = threading.Lock()
 
     def __init__(self):
-        if (Mapper._instance != None):
+        if (Mapper.__instance != None):
             raise ('It is not allowed to create a class instance. Use MapperConfiguration.get_instance method.')
 
             Mapper._instance = self
@@ -24,16 +22,15 @@ class Mapper(object):
         :return: 
         """
         if Mapper.__instance is None:
-            with Mapper._lock:
+            with Mapper.__lock:
                 if Mapper.__instance is None:
                     Mapper.__instance = Mapper()
 
         return Mapper.__instance
 
     def __configure(self):
-        self.__mapper = ObjectMapper()
-        self.__mapper.create_map(GeneAnnotationDto, GeneAnnotation)
-        self.__mapper.create_map(GeneAnnotation, GeneAnnotationDto)
+        self.__create_map(GeneAnnotationDto, GeneAnnotation, {'id_entrez': lambda g : g.id_entrez})
+        self.__create_map(GeneAnnotation, GeneAnnotationDto)
 
     def map(self, from_obj, to_type):
         """
@@ -43,5 +40,9 @@ class Mapper(object):
         :return: 
         """
         return self.__mapper.map(from_obj, to_type, ignore_case=True)
+
+    def __create_map(self, type_from, type_to, mapping=None):
+        property_names = [p for p in dir(type_to) if isinstance(getattr(type_to, p), property)]
+        print('')
 
 
