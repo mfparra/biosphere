@@ -1,7 +1,9 @@
 from typing import Dict, List
 
+from Src.Core.Mapper.MapperUtils import MapperUtils
 
-class TypeToInfo(object):
+
+class ToTypeInfo(object):
     """"""
 
     def __init__(self, **kargs):
@@ -16,7 +18,7 @@ class TypeToInfo(object):
         if not self.__class_type:
             raise ValueError('The class_type is required.')
 
-        self.__properties = [p for p in dir(self.__class_type) if isinstance(getattr(self.__class_type, p), property)]
+        self.__properties = MapperUtils.get_properties_from_class(self.__class_type)
 
     @property
     def class_type(self) -> int:

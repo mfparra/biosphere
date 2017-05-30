@@ -2,6 +2,7 @@ import threading
 
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
 from Src.BioDataManagement.DataAccess.Entities.GeneAnnotation import GeneAnnotation
+from Src.Core.Mapper.AutoMapper import AutoMapper
 
 
 class Mapper(object):
@@ -12,7 +13,9 @@ class Mapper(object):
         if (Mapper.__instance != None):
             raise ('It is not allowed to create a class instance. Use MapperConfiguration.get_instance method.')
 
-            Mapper._instance = self
+            Mapper.__instance = self
+
+        self.__mapper = None
         self.__configure()
 
     @staticmethod
@@ -29,20 +32,20 @@ class Mapper(object):
         return Mapper.__instance
 
     def __configure(self):
-        self.__create_map(GeneAnnotationDto, GeneAnnotation, {'id_entrez': lambda g : g.id_entrez})
-        self.__create_map(GeneAnnotation, GeneAnnotationDto)
+        self.__mapper = AutoMapper()
 
-    def map(self, from_obj, to_type):
+        self.__mapper.create_map(GeneAnnotationDto, GeneAnnotation)
+        self.__mapper.create_map(GeneAnnotation, GeneAnnotationDto)
+
+    def map(self, from_obj, to_type, ignore_case=True):
         """
         
         :param from_obj: 
         :param to_type: 
         :return: 
         """
-        return self.__mapper.map(from_obj, to_type, ignore_case=True)
+        return self.__mapper.map(from_obj, to_type, ignore_case)
 
-    def __create_map(self, type_from, type_to, mapping=None):
-        property_names = [p for p in dir(type_to) if isinstance(getattr(type_to, p), property)]
-        print('')
+
 
 

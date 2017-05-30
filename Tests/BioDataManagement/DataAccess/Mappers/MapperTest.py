@@ -17,5 +17,14 @@ class MapperTest(unittest.TestCase):
                                                          symbol='ABC',
                                                          synonyms_genes=['CDB', 'AB1', 'DC3']))
 
+        gene_annotation_dto = Mapper.get_instance().map(GeneAnnotation(id_entrez=1,
+                                                                       symbol='ABC',
+                                                                       synonyms_genes=['CDB', 'AB1', 'DC3']),
+                                                        GeneAnnotationDto)
+
+        self.assertEqual(gene_annotation_dto, GeneAnnotationDto(id_entrez=1,
+                                                                symbol='ABC',
+                                                                synonyms_genes=['CDB', 'AB1', 'DC3']))
+
 if __name__ == '__main__':
     unittest.main()

@@ -16,7 +16,7 @@ class GeneAnnotationManager(ManagerBase):
         super().__init__(repository)
 
 
-    def add(self, genes: List[GeneAnnotationDto]):
+    def add_many(self, genes: List[GeneAnnotationDto]):
         """
         
         :param genes: 
