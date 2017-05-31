@@ -23,28 +23,28 @@ class DnaMethylationSampleFileTest(unittest.TestCase):
         self.assertRaises(ValueError, DnaMethylationSampleFile, **{'patient_id':'TCGA-A7-A0DC'})
 
     def test_equal(self):
-        dna_methylation_levels = [DnaMethylationSampleFile(patient_id='TCGA-A7-A0DC',
-                                                           dna_methylation_levels=[DnaMethylationLevel(
+        dna_methylation_samples = [DnaMethylationSampleFile(patient_id='TCGA-A7-A0DC',
+                                                            dna_methylation_levels=[DnaMethylationLevel(
                                                                                         gene_symbol='ABCD',
                                                                                         control_value=12.23,
                                                                                         case_value=32.1213)]),
-                                  DnaMethylationSampleFile(patient_id='TCGA-BH-A0AU',
-                                                           dna_methylation_levels=[DnaMethylationLevel(
+                                   DnaMethylationSampleFile(patient_id='TCGA-BH-A0AU',
+                                                            dna_methylation_levels=[DnaMethylationLevel(
                                                                                         gene_symbol='ABCD',
                                                                                         control_value=12.23,
                                                                                         case_value=32.1213)]),
-                                  DnaMethylationSampleFile(patient_id='TCGA-A7-A0DC',
-                                                           dna_methylation_levels=[DnaMethylationLevel(
+                                   DnaMethylationSampleFile(patient_id='TCGA-A7-A0DC',
+                                                            dna_methylation_levels=[DnaMethylationLevel(
                                                                                         gene_symbol='ABCD',
                                                                                         control_value=12.23,
                                                                                         case_value=32.1213)]),
-                                  DnaMethylationSampleFile(patient_id='TCGA-BH-A1EW',
-                                                           dna_methylation_levels=[DnaMethylationLevel(
+                                   DnaMethylationSampleFile(patient_id='TCGA-BH-A1EW',
+                                                            dna_methylation_levels=[DnaMethylationLevel(
                                                                                         gene_symbol='ABCD',
                                                                                         control_value=12.23,
                                                                                         case_value=32.1213)])]
 
-        self.assertEqual(len(list(set(dna_methylation_levels))), 3)
+        self.assertEqual(len(list(set(dna_methylation_samples))), 3)
 
 if __name__ == '__main__':
     unittest.main()

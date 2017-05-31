@@ -22,28 +22,24 @@ class MessengerRnaSampleFileTest(unittest.TestCase):
         self.assertRaises(ValueError, MessengerRnaSampleFile, **{'patient_id':'TCGA-A7-A0DC'})
 
     def test_equal(self):
-        gene_expression_levels = [MessengerRnaSampleFile(patient_id='TCGA-A7-A0DC',
-                                                         gene_expression_levels=[GeneExpressionLevel(
-                                                                                        gene_symbol='ABCD',
-                                                                                        control_value=12.23,
-                                                                                        case_value=32.1213)]),
-                                  MessengerRnaSampleFile(patient_id='TCGA-BH-A0AU',
-                                                         gene_expression_levels=[GeneExpressionLevel(
-                                                                                        gene_symbol='ABCD',
-                                                                                        control_value=12.23,
-                                                                                        case_value=32.1213)]),
-                                  MessengerRnaSampleFile(patient_id='TCGA-A7-A0DC',
-                                                         gene_expression_levels=[GeneExpressionLevel(
-                                                                                        gene_symbol='ABCD',
-                                                                                        control_value=12.23,
-                                                                                        case_value=32.1213)]),
-                                  MessengerRnaSampleFile(patient_id='TCGA-BH-A1EW',
-                                                         gene_expression_levels=[GeneExpressionLevel(
-                                                                                        gene_symbol='ABCD',
-                                                                                        control_value=12.23,
-                                                                                        case_value=32.1213)])]
+        genes = [MessengerRnaSampleFile(patient_id='TCGA-A7-A0DC',
+                                        gene_expression_levels=[GeneExpressionLevel(gene_symbol='ABCD',
+                                                                                    control_value=12.23,
+                                                                                    case_value=32.1213)]),
+                 MessengerRnaSampleFile(patient_id='TCGA-BH-A0AU',
+                                        gene_expression_levels=[GeneExpressionLevel(gene_symbol='ABCD',
+                                                                                    control_value=12.23,
+                                                                                    case_value=32.1213)]),
+                 MessengerRnaSampleFile(patient_id='TCGA-A7-A0DC',
+                                        gene_expression_levels=[GeneExpressionLevel(gene_symbol='ABCD',
+                                                                                    control_value=12.23,
+                                                                                    case_value=32.1213)]),
+                 MessengerRnaSampleFile(patient_id='TCGA-BH-A1EW',
+                                        gene_expression_levels=[GeneExpressionLevel(gene_symbol='ABCD',
+                                                                                    control_value=12.23,
+                                                                                    case_value=32.1213)])]
 
-        self.assertEqual(len(list(set(gene_expression_levels))), 3)
+        self.assertEqual(len(list(set(genes))), 3)
 
 if __name__ == '__main__':
     unittest.main()
