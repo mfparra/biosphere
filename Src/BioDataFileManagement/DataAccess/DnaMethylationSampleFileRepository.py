@@ -1,3 +1,4 @@
+import os
 import re
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.DnaMethylationSampleFileRepositoryBase import \
@@ -26,13 +27,16 @@ class DnaMethylationSampleFileRepository(DnaMethylationSampleFileRepositoryBase)
         :return: 
         """
         result_list = None
-
+        directory = os.path.join(self._directory,
+                                 fe_dna_methylation.sub_directory) if fe_dna_methylation.sub_directory\
+                                                                   else self._directory
         if not fe_dna_methylation.is_paged:
-            result_list = FileUtils.read_all(self._directory, fe_dna_methylation.pattern)
+            result_list = FileUtils.read_all(directory, fe_dna_methylation.pattern)
         else:
             fe_dna_methylation.current_page, \
             fe_dna_methylation. page_count, \
-            result_list = FileUtils.read_with_pagginate(self._directory, fe_dna_methylation.page_size,
+            result_list = FileUtils.read_with_pagginate(directory,
+                                                        fe_dna_methylation.page_size,
                                                         fe_dna_methylation.current_page, fe_dna_methylation. page_count,
                                                         '\S+.*\.txt')
 

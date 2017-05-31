@@ -11,8 +11,20 @@ class GeneAnnotationRepositoryBase(MongoRepositoryBase, metaclass=ABCMeta):
 
     @abstractmethod
     def add_many(self, genes: List[GeneAnnotationDto]):
+        """
+        
+        :param genes: 
+        :return: 
+        """
         pass
 
     @abstractmethod
     def get_many(self, fe_list_gene: FeListGeneAnnotation, dto_class = None, include_or_exclude_fields: Dict[str, int] = None) -> FeListGeneAnnotation:
+        """
+        
+        :param fe_list_gene: 
+        :param dto_class: 
+        :param include_or_exclude_fields: 
+        :return: 
+        """
         pass

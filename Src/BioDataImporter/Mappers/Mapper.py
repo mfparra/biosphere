@@ -1,9 +1,7 @@
 import threading
 
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
-from Src.BioDataManagement.CrossCutting.DTOs.MicroRnaGeneTargetDto import MicroRnaGeneTargetDto
-from Src.BioDataManagement.DataAccess.Entities.GeneAnnotation import GeneAnnotation
-from Src.BioDataManagement.DataAccess.Entities.MicroRnaGeneTarget import MicroRnaGeneTarget
 from Src.Core.Mapper.AutoMapper import AutoMapper
 
 
@@ -35,12 +33,7 @@ class Mapper(object):
 
     def __configure(self):
         self.__mapper = AutoMapper()
-
-        self.__mapper.create_map(GeneAnnotationDto, GeneAnnotation)
-        self.__mapper.create_map(GeneAnnotation, GeneAnnotationDto)
-
-        self.__mapper.create_map(MicroRnaGeneTargetDto, MicroRnaGeneTarget)
-        self.__mapper.create_map(MicroRnaGeneTarget, MicroRnaGeneTargetDto)
+        self.__mapper.create_map(GeneAnnotationFile, GeneAnnotationDto)
 
     def map(self, from_obj, to_type, ignore_case=True):
         """

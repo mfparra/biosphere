@@ -1,3 +1,4 @@
+import os
 import re
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.MessengerRnaSampleFileRepositoryBase import \
@@ -26,13 +27,17 @@ class MessengerRnaSampleFileRepository(MessengerRnaSampleFileRepositoryBase):
         :return: 
         """
         result_list = None
+        directory = os.path.join(self._directory,
+                                 fe_mrna.sub_directory) if fe_mrna.sub_directory \
+                                                        else self._directory
 
         if not fe_mrna.is_paged:
-            result_list = FileUtils.read_all(self._directory, fe_mrna.pattern)
+            result_list = FileUtils.read_all(directory, fe_mrna.pattern)
         else:
             fe_mrna.current_page, \
             fe_mrna. page_count, \
-            result_list = FileUtils.read_with_pagginate(self._directory, fe_mrna.page_size,
+            result_list = FileUtils.read_with_pagginate(directory,
+                                                        fe_mrna.page_size,
                                                         fe_mrna.current_page, fe_mrna. page_count,
                                                         '\S+.*\.txt')
 
