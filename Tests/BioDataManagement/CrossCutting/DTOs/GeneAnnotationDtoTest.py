@@ -37,7 +37,7 @@ class GeneAnnotationDtoTest(unittest.TestCase):
                                                       symbol='AB3',
                                                       synonyms_genes=['CDB', 'AB1', 'DC3'])]
 
-        self.assertTrue(len(list(set(gene_annotation_dto_list))), 3)
+        self.assertTrue(len(list(set(gene_annotation_dto_list))) == 3)
 
 if __name__ == '__main__':
     unittest.main()

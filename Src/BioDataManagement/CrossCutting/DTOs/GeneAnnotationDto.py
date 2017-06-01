@@ -27,7 +27,7 @@ class GeneAnnotationDto(object):
         return self.__id_entrez
 
     @id_entrez.setter
-    def id_entrez(self, value):
+    def id_entrez(self, value:int):
         """
         
         :param value: 
@@ -41,7 +41,7 @@ class GeneAnnotationDto(object):
         return self.__symbol
 
     @symbol.setter
-    def symbol(self, value):
+    def symbol(self, value:str):
         """
 
         :param value: 
@@ -55,7 +55,7 @@ class GeneAnnotationDto(object):
         return self.__synonyms_genes[:]
 
     @synonyms_genes.setter
-    def synonyms_genes(self, value):
+    def synonyms_genes(self, value: List[str]):
         """
 
         :param value: 

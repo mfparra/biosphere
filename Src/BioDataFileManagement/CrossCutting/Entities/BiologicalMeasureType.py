@@ -1,7 +1,4 @@
-from abc import ABCMeta
-
-
-class BiologicalMeasureTypeBase(metaclass=ABCMeta):
+class BiologicalMeasureType:
     """description of class"""
 
     def __init__(self, **kargs):

@@ -56,7 +56,6 @@ class MicroRnaGeneTarget(EntityBase):
         if not self.__micro_rna_symbol:
             raise ValueError('micro_rna_symbol is required.')
 
-
     def as_dict(self):
         return {'micro_rna_symbol': self.__micro_rna_symbol,
                 'id_entrez_genes': self.__id_entrez_genes}

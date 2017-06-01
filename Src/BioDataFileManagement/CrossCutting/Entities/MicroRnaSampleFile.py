@@ -1,7 +1,7 @@
 from typing import List
 
-from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalFileSampleBase import BiologicalFileSampleBase
 from Src.BioDataFileManagement.CrossCutting.Entities.MicroRnaExpressionLevel import MicroRnaExpressionLevel
+from Src.Core.Entities.BiologicalSampleBase import BiologicalFileSampleBase
 
 
 class MicroRnaSampleFile(BiologicalFileSampleBase):

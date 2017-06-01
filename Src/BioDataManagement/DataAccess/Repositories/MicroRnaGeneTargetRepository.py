@@ -6,6 +6,7 @@ from Src.BioDataManagement.CrossCutting.DTOs.MicroRnaGeneTargetDto import MicroR
 from Src.BioDataManagement.CrossCutting.Filters.FeListMicroRnaGeneTarget import FeListMicroRnaGeneTarget
 from Src.BioDataManagement.DataAccess.Entities.GeneAnnotation import GeneAnnotation
 from Src.BioDataManagement.DataAccess.Entities.MicroRnaGeneTarget import MicroRnaGeneTarget
+from Src.Core.Data.MongoRepositoryActions import MongoRepositoryActions
 
 
 class MicroRnaGeneTargetRepository(MicroRnaGeneTargetRepositoryBase):
@@ -17,13 +18,14 @@ class MicroRnaGeneTargetRepository(MicroRnaGeneTargetRepositoryBase):
         :param db: 
         """
         super().__init__(db, 'micro_rna_gene_target')
+        self.__mongo_actions = MongoRepositoryActions(self._collection)
 
     def add_many(self, mirna_gene_targets: List[MicroRnaGeneTargetDto]):
         """
         
         :param mirna_gene_targets: 
         """
-        self._add_many(mirna_gene_targets, MicroRnaGeneTarget)
+        self.__mongo_actions.add_many(mirna_gene_targets, MicroRnaGeneTarget)
 
     def get_many(self, fe_list_targets: FeListMicroRnaGeneTarget, dto_class = None,
                  include_or_exclude_fields: Dict[str, int] = None) -> FeListMicroRnaGeneTarget:
@@ -37,4 +39,4 @@ class MicroRnaGeneTargetRepository(MicroRnaGeneTargetRepositoryBase):
         query = {} if not fe_list_targets.mirna_symbol_list \
             else {'mirna_symbol': {'$in': fe_list_targets.mirna_symbol_list}}
 
-        return self.__get_many(query, fe_list_targets, MicroRnaGeneTarget, dto_class, include_or_exclude_fields)
+        return self.__mongo_actions.get_many(query, fe_list_targets, MicroRnaGeneTarget, dto_class, include_or_exclude_fields)

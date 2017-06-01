@@ -9,7 +9,6 @@ class MicroRnaGeneTargetDto(object):
         
         :param kargs: 
         """
-
         self.__id_entrez_genes = kargs.get("id_entrez_genes", [])
         self.__micro_rna_symbol = kargs.get('micro_rna_symbol', '')
 
@@ -26,7 +25,7 @@ class MicroRnaGeneTargetDto(object):
         return self.__id_entrez_genes[:]
 
     @id_entrez_genes.setter
-    def id_entrez_genes(self, value):
+    def id_entrez_genes(self, value:List[int]):
         """
         
         :param value: 
@@ -40,7 +39,7 @@ class MicroRnaGeneTargetDto(object):
         return self.__micro_rna_symbol
 
     @micro_rna_symbol.setter
-    def micro_rna_symbol(self, value):
+    def micro_rna_symbol(self, value:str):
         """
 
         :param value: 

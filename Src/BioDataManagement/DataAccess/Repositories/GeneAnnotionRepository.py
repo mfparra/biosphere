@@ -4,6 +4,7 @@ from Src.BioDataManagement.CrossCutting.Contracts.GeneAnnotationRepositoryBase i
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
 from Src.BioDataManagement.CrossCutting.Filters.FeListGeneAnnotation import FeListGeneAnnotation
 from Src.BioDataManagement.DataAccess.Entities.GeneAnnotation import GeneAnnotation
+from Src.Core.Data.MongoRepositoryActions import MongoRepositoryActions
 
 
 class GeneAnnotationRepository(GeneAnnotationRepositoryBase):
@@ -15,13 +16,14 @@ class GeneAnnotationRepository(GeneAnnotationRepositoryBase):
         :param db: 
         """
         super().__init__(db, 'gene_annotation')
+        self.__mongo_actions = MongoRepositoryActions(self._collection)
 
     def add_many(self, genes: List[GeneAnnotationDto]):
         """
         
         :param genes: 
         """
-        self._add_many(genes, GeneAnnotation)
+        self.__mongo_actions.add_many(genes, GeneAnnotation)
 
     def get_many(self, fe_list_gene: FeListGeneAnnotation, dto_class = None, include_or_exclude_fields: Dict[str, int] = None) -> FeListGeneAnnotation:
         """
@@ -39,4 +41,4 @@ class GeneAnnotationRepository(GeneAnnotationRepositoryBase):
             #query = {"$or": [{'symbol': {'$in': fe_list_gene.symbol_list}},
                              #{'synonyms_genes': {'$in': fe_list_gene.symbol_list}}]}
 
-        return self.__get_many(query, fe_list_gene, GeneAnnotation, dto_class, include_or_exclude_fields)
+        return self.__mongo_actions.get_many(query, fe_list_gene, GeneAnnotation, dto_class, include_or_exclude_fields)

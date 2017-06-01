@@ -1,4 +1,4 @@
-from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalMeasureTypeBase import BiologicalMeasureTypeBase
+from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalMeasureType import BiologicalMeasureType
 
 
 class MicroRnaExpressionLevel(BiologicalMeasureTypeBase):
@@ -9,8 +9,7 @@ class MicroRnaExpressionLevel(BiologicalMeasureTypeBase):
 
         :param kargs: 
         """
-        super().__init__(**kargs)
-
+        self.__biological_measure_type = BiologicalMeasureType(**kargs)
         self.__symbol = kargs.get("symbol")
 
         if not self.__symbol:

@@ -73,7 +73,6 @@ class GeneAnnotation(EntityBase):
         if not self.__symbol:
             raise ValueError('Symbol is required.')
 
-
     def as_dict(self):
         return {'id_entrez': self.__id_entrez,
                 'symbol': self.__symbol,

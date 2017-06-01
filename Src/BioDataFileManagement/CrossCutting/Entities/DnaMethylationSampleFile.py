@@ -1,7 +1,7 @@
 from typing import List
 
 from Src.BioDataFileManagement.CrossCutting.Entities.DnaMethylationLevel import DnaMethylationLevel
-from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalFileSampleBase import BiologicalFileSampleBase
+from Src.Core.Entities.BiologicalSampleBase import BiologicalFileSampleBase
 
 
 class DnaMethylationSampleFile(BiologicalFileSampleBase):
@@ -32,3 +32,13 @@ class DnaMethylationSampleFile(BiologicalFileSampleBase):
     def dna_methylation_levels(self) -> List[DnaMethylationLevel]:
         """description of property"""
         return self.__dna_methylation_levels[:]
+
+    @property
+    def control_value(self) -> float:
+        """description of property"""
+        return self.__biological_measure_type.control_value
+
+    @property
+    def case_value(self) -> float:
+        """description of property"""
+        return self.__biological_measure_type.case_value

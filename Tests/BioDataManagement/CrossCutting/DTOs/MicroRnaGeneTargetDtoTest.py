@@ -31,7 +31,7 @@ class MicroRnaGeneTargetDtoTest(unittest.TestCase):
                                      MicroRnaGeneTargetDto(micro_rna_symbol='hsa-mir-3092',
                                                            id_entrez_genes=[1, 2, 3, 4, 5, 6])]
 
-        self.assertTrue(len(list(set(micro_rna_gene_target_dto))), 3)
+        self.assertTrue(len(list(set(micro_rna_gene_target_dto))) == 4)
 
 if __name__ == '__main__':
     unittest.main()
