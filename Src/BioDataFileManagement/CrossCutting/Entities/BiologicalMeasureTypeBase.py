@@ -9,13 +9,13 @@ class BiologicalMeasureTypeBase(metaclass=ABCMeta):
         
         :param kargs: 
         """
-        self.__control_value = kargs.get("control_value")
-        self.__case_value = kargs.get("case_value")
+        self.__control_value = kargs.get('control_value', None)
+        self.__case_value = kargs.get('case_value', None)
 
-        if not self.__control_value:
+        if not self.__control_value == 0 and not self.__control_value:
             raise ValueError("The 'control_value' is required.")
 
-        if not self.__case_value:
+        if not self.__case_value == 0 and not self.__case_value:
             raise ValueError("The 'case_value' is required.")
 
 

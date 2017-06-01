@@ -1,27 +1,31 @@
-import shutil
-import tempfile
 import unittest
-from os import path
+from unittest.mock import Mock
 
+from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
+    GeneAnnotationFileRepositoryBase
+from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
 from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
 from Src.BioDataFileManagement.Managers.GeneAnnotionFileManager import GeneAnnotationFileManager
-from Tests.BioDataFileManagement.Managers.GeneAnnotationFileRepositoryMock import GeneAnnotaionFileRepositoryMock
 
 
 class GeneAnnotationManagerTests(unittest.TestCase):
     def setUp(self):
-        self.__repository_dir = tempfile.mkdtemp()
+        self.__fe = FeSingleGeneAnnotationFile(file='gene_annotation.txt')
+        self.__fe.result = [GeneAnnotationFile(id_entrez=12, symbol='A2MP1',
+                                               synonyms_genes=['A2MD', 'CPAMD5', 'FWP007', 'S863-7']),
+                            GeneAnnotationFile(id_entrez=121, symbol='ACACB',
+                                               synonyms_genes=['HEL70']),
+                            GeneAnnotationFile(id_entrez=1, symbol='RPS10-NUDT3',
+                                               synonyms_genes=['-']),
+                            GeneAnnotationFile(id_entrez=89, symbol='AANAT',
+                                               synonyms_genes=['-'])]
 
-    def tearDown(self):
-        shutil.rmtree(self.__repository_dir)
+        self.__repository = Mock(spec=GeneAnnotationFileRepositoryBase)
+        self.__repository.get.return_value = self.__fe
 
     def test_get(self):
-        with open(path.join(self.__repository_dir, 'gene_annotation.txt'), 'w') as file_temp:
-            file_temp.write('content')
-
-        mock = GeneAnnotaionFileRepositoryMock(self.__repository_dir)
         filter = FeSingleGeneAnnotationFile(file='gene_annotation.txt')
-        manager = GeneAnnotationFileManager(mock)
+        manager = GeneAnnotationFileManager(self.__repository)
 
         filter_result = manager.get(filter)
 

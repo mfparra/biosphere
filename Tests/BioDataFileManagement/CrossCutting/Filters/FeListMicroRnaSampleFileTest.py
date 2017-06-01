@@ -1,11 +1,11 @@
 import unittest
 
-from Src.BioDataFileManagement.CrossCutting.Filters.FeListMessengerRnaSampleFile import FeListMessengerRnaSampleFile
+from Src.BioDataFileManagement.CrossCutting.Filters.FeListMicroRnaSampleFile import FeListMicroRnaSampleFile
 
 
-class FeListMessengerRnaSampleFileTests(unittest.TestCase):
+class FeListMicroRnaSampleFileTest(unittest.TestCase):
     def test_instance(self):
-        filter = FeListMessengerRnaSampleFile(pattern='\S+.*\.txt')
+        filter = FeListMicroRnaSampleFile(pattern='\S+.*\.txt')
 
         self.assertEqual(filter.pattern, '\S+.*\.txt')
         self.assertEqual(filter.current_page, 0)
@@ -15,18 +15,18 @@ class FeListMessengerRnaSampleFileTests(unittest.TestCase):
         self.assertListEqual(filter.result_list, [])
         self.assertEqual(filter.sub_directory, None)
 
-        filter = FeListMessengerRnaSampleFile(pattern='\S+.*\.txt',
-                                              current_page=1,
-                                              page_size=20,
-                                              page_count=13,
-                                              is_paged=False,
-                                              sub_directory='messenger_rna_samples')
+        filter = FeListMicroRnaSampleFile(pattern='\S+.*\.txt',
+                                          current_page=1,
+                                          page_size=20,
+                                          page_count=13,
+                                          is_paged=False,
+                                          sub_directory='micro_rna_samples')
 
         self.assertEqual(filter.current_page, 1)
         self.assertEqual(filter.page_size, 20)
         self.assertEqual(filter.page_count, 13)
         self.assertFalse(filter.is_paged)
-        self.assertEqual(filter.sub_directory, 'messenger_rna_samples')
+        self.assertEqual(filter.sub_directory, 'micro_rna_samples')
 
         filter.current_page = 2
         filter.page_size = 40

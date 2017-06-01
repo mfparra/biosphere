@@ -2,7 +2,7 @@ import shutil
 import tempfile
 import unittest
 
-from os import path
+from os import path, makedirs
 
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListMessengerRnaSampleFile import FeListMessengerRnaSampleFile
 from Src.BioDataFileManagement.DataAccess.MessengerRnaSampleFileRepository import MessengerRnaSampleFileRepository
@@ -11,6 +11,11 @@ from Src.BioDataFileManagement.DataAccess.MessengerRnaSampleFileRepository impor
 class MessengerRnaSampleFileRepositoryTest(unittest.TestCase):
     def setUp(self):
         self.__repository_dir = tempfile.mkdtemp()
+        self.__sub_directory = path.join(self.__repository_dir, 'micro_rna_samples')
+
+        if not path.exists(self.__sub_directory):
+            makedirs(self.__sub_directory)
+
         self.__content = 'gene	control	case\n' \
                          '1-Dec	0.8883	0.8047\n' \
                          '1-Mar	0.08760000000000001	0.3478\n' \
@@ -40,11 +45,11 @@ class MessengerRnaSampleFileRepositoryTest(unittest.TestCase):
         shutil.rmtree(self.__repository_dir)
 
     def test_get(self):
-        with open(path.join(self.__repository_dir, 'messenger_rna.txt'), 'w') as file_temp:
+        with open(path.join(self.__sub_directory, 'messenger_rna.txt'), 'w') as file_temp:
             file_temp.write(self.__content)
 
         repository = MessengerRnaSampleFileRepository(self.__repository_dir)
-        filter = repository.get(FeListMessengerRnaSampleFile())
+        filter = repository.get(FeListMessengerRnaSampleFile(sub_directory=self.__sub_directory))
 
         self.assertEqual(len(filter.result_list), 1)
 

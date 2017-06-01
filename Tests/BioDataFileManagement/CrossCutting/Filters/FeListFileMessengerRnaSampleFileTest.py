@@ -3,7 +3,7 @@ import unittest
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListMessengerRnaSampleFile import FeListMessengerRnaSampleFile
 
 
-class FeListMessengerRnaSampleFileTests(unittest.TestCase):
+class FeListMessengerRnaSampleFileTest(unittest.TestCase):
     def test_instance(self):
         filter = FeListMessengerRnaSampleFile(pattern='\S+.*\.txt')
 

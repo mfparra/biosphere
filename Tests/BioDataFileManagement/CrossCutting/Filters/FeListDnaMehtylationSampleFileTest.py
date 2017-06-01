@@ -3,7 +3,7 @@ import unittest
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListDnaMethylationSampleFile import FeListDnaMethylationSampleFile
 
 
-class FeListFileDnaMethylationSampleFileTests(unittest.TestCase):
+class FeListMessengerRnaSampleFileTest(unittest.TestCase):
     def test_instance(self):
         filter = FeListDnaMethylationSampleFile(pattern='\S+.*\.txt')
 
@@ -20,13 +20,13 @@ class FeListFileDnaMethylationSampleFileTests(unittest.TestCase):
                                                 page_size=20,
                                                 page_count=13,
                                                 is_paged=False,
-                                                sub_directory='dna_methylation_samples')
+                                                sub_directory='messenger_rna_samples')
 
         self.assertEqual(filter.current_page, 1)
         self.assertEqual(filter.page_size, 20)
         self.assertEqual(filter.page_count, 13)
         self.assertFalse(filter.is_paged)
-        self.assertEqual(filter.sub_directory, 'dna_methylation_samples')
+        self.assertEqual(filter.sub_directory, 'messenger_rna_samples')
 
         filter.current_page = 2
         filter.page_size = 40
