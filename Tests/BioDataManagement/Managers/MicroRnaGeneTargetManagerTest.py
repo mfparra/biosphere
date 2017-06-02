@@ -36,14 +36,14 @@ class MicroRnaGeneTargetManagerTests(unittest.TestCase):
 
     def test_add_many(self):
         with patch.object(self.__repository, 'add_many') as mock:
-            gene_annotations =  self.__manager.add_many(self.__micro_rna_gene_target_dtos)
+            self.__manager.add_many(self.__micro_rna_gene_target_dtos)
             assert not mock.called
 
         self.__fe.result_list = ['hsa-mir-392', 'hsa-mir-32', 'hsa-mir-3921']
         self.__repository.get_many.return_value = self.__fe
 
         with patch.object(self.__repository, 'add_many') as mock:
-            gene_annotations =  self.__manager.add_many(self.__micro_rna_gene_target_dtos)
+            self.__manager.add_many(self.__micro_rna_gene_target_dtos)
             mock.assert_called_with([MicroRnaGeneTargetDto(micro_rna_symbol='hsa-mir-1392',
                                                            id_entrez_genes=[1, 2, 3, 4, 5]),
                                      MicroRnaGeneTargetDto(micro_rna_symbol='hsa-mir-3992',

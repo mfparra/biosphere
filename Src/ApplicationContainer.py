@@ -7,6 +7,7 @@ from Src.BioDataFileManagement.DataAccess.GeneAnnotationFileRepository import Ge
 from Src.BioDataFileManagement.DataAccess.MessengerRnaSampleFileRepository import MessengerRnaSampleFileRepository
 from Src.BioDataFileManagement.DataAccess.MicroRnaGeneTargetFileRepository import MicroRnaGeneTargetFileRepository
 from Src.BioDataFileManagement.DataAccess.MicroRnaSampleFileRepository import MicroRnaSampleFileRepository
+from Src.BioDataManagement.DataAccess.Repositories.DnaMethylationSampleRepository import DnaMethylationSampleRepository
 from Src.BioDataManagement.DataAccess.Repositories.GeneAnnotionRepository import GeneAnnotationRepository
 from Src.BioDataManagement.DataAccess.Repositories.MessengerRnaSampleRepository import MessengerRnaSampleRepository
 from Src.BioDataManagement.DataAccess.Repositories.MicroRnaGeneTargetRepository import MicroRnaGeneTargetRepository
@@ -52,8 +53,9 @@ class ApplicationContainer(object):
                        scope=inject.Scope.Application)
         inject.provide('MessengerRnaSampleRepositoryBase', lambda: MessengerRnaSampleRepository(db),
                        scope=inject.Scope.Application)
+        inject.provide('DnaMethylationSampleRepositoryBase', lambda: DnaMethylationSampleRepository(db),
+                       scope=inject.Scope.Application)
 
-        #inject.provide('MicroRnaRepositoryBase', lambda: mirna_repository, scope=inject.Scope.Application)
         #inject.provide('GeneSelectedRepositoryBase', lambda: gene_selected_repository, scope=inject.Scope.Application)
         #inject.provide('NetworkRepositoryBase', lambda: network_repository, scope=inject.Scope.Application)
 

@@ -3,7 +3,7 @@ from typing import List
 from Src.BioDataManagement.DataAccess.Entities.BiologicalSampleBase import BiologicalSampleBase
 
 
-class MessengerRnaSample(BiologicalSampleBase):
+class MicroRnaSample(BiologicalSampleBase):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -22,7 +22,7 @@ class MessengerRnaSample(BiologicalSampleBase):
         return hash(self.patient_id)
 
     def __eq__(self, other):
-        return isinstance(other, MessengerRnaSample) and \
+        return isinstance(other, MicroRnaSample) and \
                self.patient_id == other.patient_id
 
     @property

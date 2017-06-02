@@ -10,7 +10,7 @@ class BiologicalMeasureType(EntityBase):
         :param kargs: 
         """
         self.__control = kargs.get('control', None)
-        self.__case_value = kargs.get('case', None)
+        self.__case = kargs.get('case', None)
 
     @property
     def control(self) -> float:
@@ -29,7 +29,7 @@ class BiologicalMeasureType(EntityBase):
     @property
     def case(self) -> float:
         """description of property"""
-        return self.__case_value
+        return self.__case
 
     @case.setter
     def case(self, value: float):

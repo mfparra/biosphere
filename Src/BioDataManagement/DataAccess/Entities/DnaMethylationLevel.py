@@ -2,7 +2,7 @@ from Src.BioDataManagement.DataAccess.Entities.BiologicalMeasureType import Biol
 from Src.Core.Entity.EntityBase import EntityBase
 
 
-class GeneExpressionLevel(EntityBase):
+class DnaMethylationLevel(EntityBase):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -17,7 +17,7 @@ class GeneExpressionLevel(EntityBase):
         return hash(self.__id_entrez)
 
     def __eq__(self, other):
-        return isinstance(other, GeneExpressionLevel) and \
+        return isinstance(other, DnaMethylationLevel) and \
                self.__id_entrez == other.id_entrez
 
     @property

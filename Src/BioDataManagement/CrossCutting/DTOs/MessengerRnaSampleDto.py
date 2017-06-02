@@ -15,7 +15,9 @@ class MessengerRnaSampleDto(BiologicalSampleBaseDto):
         super().__init__(**kargs)
 
         self.__gene_expression_levels = kargs.get("gene_expression_levels")
-        self.__gene_expression_levels = list(set(self.__gene_expression_levels))
+
+        if self.__gene_expression_levels:
+            self.__gene_expression_levels = list(set(self.__gene_expression_levels))
 
     def __hash__(self):
         return hash(self.patient_id)

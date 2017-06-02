@@ -2,7 +2,7 @@ from Src.BioDataManagement.DataAccess.Entities.BiologicalMeasureType import Biol
 from Src.Core.Entity.EntityBase import EntityBase
 
 
-class GeneExpressionLevel(EntityBase):
+class MicroRnaExpressionLevel(EntityBase):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -11,28 +11,28 @@ class GeneExpressionLevel(EntityBase):
         :param kargs: 
         """
         self.__biological_measure_type = BiologicalMeasureType(**kargs)
-        self.__id_entrez = kargs.get('id_entrez')
+        self.__symbol = kargs.get('symbol')
 
     def __hash__(self):
-        return hash(self.__id_entrez)
+        return hash(self.__symbol)
 
     def __eq__(self, other):
-        return isinstance(other, GeneExpressionLevel) and \
-               self.__id_entrez == other.id_entrez
+        return isinstance(other, MicroRnaExpressionLevel) and \
+               self.__symbol == other.symbol
 
     @property
-    def id_entrez(self) -> int:
+    def symbol(self) -> str:
         """description of property"""
-        return self.__id_entrez
+        return self.__symbol
 
-    @id_entrez.setter
-    def id_entrez(self, value: int):
+    @symbol.setter
+    def symbol(self, value: str):
         """
 
         :param value: 
         :return: 
         """
-        self.__id_entrez = value
+        self.__symbol = value
 
     @property
     def control(self) -> float:
@@ -65,8 +65,8 @@ class GeneExpressionLevel(EntityBase):
     def validate(self):
         super().validate()
 
-        if not self.__id_entrez:
-            raise ValueError('id_entrez is required.')
+        if not self.__symbol:
+            raise ValueError('symbol is required.')
 
         if not self.case:
             raise ValueError('case is required.')
@@ -75,6 +75,6 @@ class GeneExpressionLevel(EntityBase):
             raise ValueError('control is required.')
 
     def as_dict(self):
-        return {'id_entrez': self.__id_entrez,
+        return {'symbol': self.__symbol,
                 'case': self.case,
                 'control': self.control}

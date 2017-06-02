@@ -3,7 +3,7 @@ from typing import List
 from Src.BioDataManagement.DataAccess.Entities.BiologicalSampleBase import BiologicalSampleBase
 
 
-class MessengerRnaSample(BiologicalSampleBase):
+class DnaMethylationSample(BiologicalSampleBase):
     """description of class"""
 
     def __init__(self, **kargs):
@@ -13,38 +13,38 @@ class MessengerRnaSample(BiologicalSampleBase):
         """
         super().__init__(**kargs)
 
-        self.__exp_levels = kargs.get('exp_levels')
+        self.__levels = kargs.get('levels')
 
-        if self.__exp_levels:
-            self.__exp_levels = list(set(self.__exp_levels))
+        if self.__levels:
+            self.__levels = list(set(self.__levels))
 
     def __hash__(self):
         return hash(self.patient_id)
 
     def __eq__(self, other):
-        return isinstance(other, MessengerRnaSample) and \
+        return isinstance(other, DnaMethylationSample) and \
                self.patient_id == other.patient_id
 
     @property
-    def exp_levels(self)-> List:
+    def levels(self)-> List:
         """description of property"""
-        return self.__exp_levels[:]
+        return self.__levels[:]
 
-    @exp_levels.setter
-    def exp_levels(self, value: List):
+    @levels.setter
+    def levels(self, value: List):
         """
 
         :param value: 
         :return: 
         """
-        self.__exp_levels = list(set(value))
+        self.__levels = list(set(value))
 
     def validate(self):
         super().validate()
 
-        for g in self.__exp_levels:
+        for g in self.__levels:
             g.validate()
 
     def as_dict(self):
         sample_dict = super().as_dict()
-        return sample_dict.update({'exp_levels': self.__exp_levels})
+        return sample_dict.update({'levels': self.__levels})

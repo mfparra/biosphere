@@ -36,14 +36,14 @@ class GeneAnnotationManagerTests(unittest.TestCase):
 
     def test_add_many(self):
         with patch.object(self.__repository, 'add_many') as mock:
-            gene_annotations =  self.__manager.add_many(self.__gene_annotation_dtos)
+            self.__manager.add_many(self.__gene_annotation_dtos)
             assert not mock.called
 
         self.__fe.result_list = [1,2]
         self.__repository.get_many.return_value = self.__fe
 
         with patch.object(self.__repository, 'add_many') as mock:
-            gene_annotations =  self.__manager.add_many(self.__gene_annotation_dtos)
+            self.__manager.add_many(self.__gene_annotation_dtos)
             mock.assert_called_with([GeneAnnotationDto(id_entrez=3,
                                                        symbol='AC3'),
                                      GeneAnnotationDto(id_entrez=6,
