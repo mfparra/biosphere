@@ -13,7 +13,7 @@ class GeneAnnotation(EntityBase):
         """
         self.__id_entrez = kargs.get('id_entrez')
         self.__symbol = kargs.get('symbol')
-        self.__synonyms_genes = kargs.get('synonyms_genes', [])
+        self.__synonyms = kargs.get('synonyms', [])
 
     def __hash__(self):
         return hash(self.id_entrez)
@@ -51,18 +51,18 @@ class GeneAnnotation(EntityBase):
         self.__symbol = value
 
     @property
-    def synonyms_genes(self) -> List[str]:
+    def synonyms(self) -> List[str]:
         """description of property"""
-        return self.__synonyms_genes[:]
+        return self.__synonyms[:]
 
-    @synonyms_genes.setter
-    def synonyms_genes(self, value):
+    @synonyms.setter
+    def synonyms(self, value):
         """
 
         :param value: 
         :return: 
         """
-        self.__synonyms_genes = value
+        self.__synonyms = value
 
     def validate(self):
         if not self.__id_entrez:
@@ -76,4 +76,4 @@ class GeneAnnotation(EntityBase):
     def as_dict(self):
         return {'id_entrez': self.__id_entrez,
                 'symbol': self.__symbol,
-                'synonyms_genes': self.__synonyms_genes}
+                'synonyms': self.__synonyms}

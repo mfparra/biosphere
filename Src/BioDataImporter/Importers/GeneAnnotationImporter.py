@@ -14,6 +14,7 @@ class GeneAnnotationImporter(BioDataImporterBase):
     This class is responsible for importing gene information.
     """
     def __init__(self):
+        """"""
         self.__gene_file_manager = GeneAnnotationFileManager()
         self.__gene_manager = GeneAnnotationManager()
 
@@ -37,7 +38,7 @@ class GeneAnnotationImporter(BioDataImporterBase):
         gene_annotations = [Mapper.get_instance().map(g, GeneAnnotationDto) for g in fe_gene_file.result]
 
         try:
-            fe_gene_file = self.__gene_manager.add_many(gene_annotations)
+            self.__gene_manager.add_many(gene_annotations)
             importation_info = ImportationInfo(status=ImportationStatus.OK,
                                                message='Gene Annotation Importation has been successful. See details to more information.',
                                                details=['{0}. {1}'.format(ImportationStatus.OK,
@@ -45,6 +46,6 @@ class GeneAnnotationImporter(BioDataImporterBase):
         except:
             importation_info = ImportationInfo(status=ImportationStatus.Fail,
                                                message='Gene Annotation Importation has failed. See details to more information.',
-                                               details=['{0}. {1}'.format(ImportationStatus.Fail, 'Error in getting gene annotaion file.')])
+                                               details=['{0}. {1}'.format(ImportationStatus.Fail, 'Error in saving gene annotaion.')])
             
         return importation_info
