@@ -25,8 +25,15 @@ class AutoMapper(object):
         if not to_type:
             raise ValueError('The to_type parameter is required.')
 
-        from_class_name = from_type.__name__
-        to_type_info = ToTypeInfo(class_type=to_type, mapping=mapping)
+        no_properties = False
+
+        if isinstance(from_type, str):
+            from_class_name = from_type
+            no_properties = True
+        else:
+            from_class_name = from_type.__name__
+
+        to_type_info = ToTypeInfo(class_type=to_type, mapping=mapping, no_properties=no_properties)
 
         if not from_class_name in self.__mappings:
             self.__mappings[from_class_name] = [to_type_info]
@@ -38,7 +45,7 @@ class AutoMapper(object):
             raise Exception('There is already mapping create for the classes {0} and {1}'.format(from_class_name,
                                                                                                  to_type.__name__))
 
-    def map(self, from_obj, to_type, ignore_case:bool=True):
+    def map(self, from_obj, to_type, ignore_case:bool=True, from_obj_class_name:str=''):
         """
         
         :param from_obj: 
@@ -52,7 +59,7 @@ class AutoMapper(object):
         if not to_type:
             raise ValueError('The to_type parameter is required.')
 
-        from_obj_name = from_obj.__class__.__name__
+        from_obj_name =  from_obj_class_name if from_obj_class_name else from_obj.__class__.__name__
 
         if not from_obj_name in self.__mappings:
             raise Exception('There is not mapping related to class {0}'.format(from_obj_name))
@@ -66,16 +73,16 @@ class AutoMapper(object):
                                                                                          to_type_name))
 
 
+        if not from_obj_class_name:
+            from_obj_dict = dict(map(lambda prop: (prop.lower() if ignore_case else prop,
+                                                   getattr(from_obj, prop)),
+                                     MapperUtils.get_properties_from_class(type(from_obj))))
 
-        from_obj_dict = dict(map(lambda prop: (prop.lower() if ignore_case else prop,
-                                               getattr(from_obj, prop)),
-                                 MapperUtils.get_properties_from_class(type(from_obj))))
+            to_properties = map(lambda prop: prop.lower() if ignore_case else prop,
+                                MapperUtils.get_properties_from_class(to_type))
 
-        to_properties = map(lambda prop: prop.lower() if ignore_case else prop,
-                            MapperUtils.get_properties_from_class(to_type))
-
-        for prop in filter(lambda prop: prop in from_obj_dict, to_properties):
-            setattr(to_obj, prop, from_obj_dict[prop])
+            for prop in filter(lambda prop: prop in from_obj_dict, to_properties):
+                setattr(to_obj, prop, from_obj_dict[prop])
 
         if not to_type_info.mapping:
             return to_obj

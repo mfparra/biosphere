@@ -1,12 +1,13 @@
-from Src.BioDataFileManagement.CrossCutting.Contracts.DnaMethylationSampleFileRepositoryBase import \
-    DnaMethylationSampleFileRepositoryBase
+from yaak import inject
+
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListDnaMethylationSampleFile import FeListDnaMethylationSampleFile
 
 
 class DnaMethylationSampleFileManager(object):
     """description of class"""
 
-    def __init__(self, repository: DnaMethylationSampleFileRepositoryBase):
+    @inject.param(repository='DnaMethylationSampleFileRepositoryBase')
+    def __init__(self, repository):
         """
         
         :param repository: 

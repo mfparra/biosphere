@@ -1,12 +1,13 @@
-from Src.BioDataFileManagement.CrossCutting.Contracts.MessengerRnaSampleFileRepositoryBase import \
-    MessengerRnaSampleFileRepositoryBase
+from yaak import inject
+
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListMessengerRnaSampleFile import FeListMessengerRnaSampleFile
 
 
 class MessengerRnaSampleFileManager(object):
     """description of class"""
 
-    def __init__(self, repository: MessengerRnaSampleFileRepositoryBase):
+    @inject.Param(repository='MessengerRnaSampleFileRepositoryBase')
+    def __init__(self, repository):
         """
         
         :param repository: 

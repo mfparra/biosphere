@@ -1,13 +1,14 @@
+from yaak import inject
+
 from Src.BioDataFileManagement.CrossCutting.Entities.GeneAnnotationFile import GeneAnnotationFile
 from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
-from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
-    GeneAnnotationFileRepositoryBase
 
 
 class GeneAnnotationFileManager(object):
     """description of class"""
 
-    def __init__(self, repository: GeneAnnotationFileRepositoryBase):
+    @inject.Param(repository ='GeneAnnotationFileRepositoryBase')
+    def __init__(self, repository):
         """
         
         :param repository: 

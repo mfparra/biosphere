@@ -1,11 +1,10 @@
 from Src.BioDataFileManagement.CrossCutting.Filters.FeSingleGeneAnnotationFile import FeSingleGeneAnnotationFile
 from Src.BioDataFileManagement.Managers.GeneAnnotionFileManager import GeneAnnotationFileManager
-from Src.BioDataImporter.Contracts import BioDataImporterBase
+from Src.BioDataImporter.Contracts.BioDataImporterBase import BioDataImporterBase
 from Src.BioDataImporter.Entities.ImportationInfo import ImportationInfo
 from Src.BioDataImporter.Entities.ImportationStatus import ImportationStatus
 from Src.BioDataImporter.Mappers.Mapper import Mapper
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
-from Src.BioDataManagement.CrossCutting.Filters.FeListGeneAnnotation import FeListGeneAnnotation
 from Src.BioDataManagement.Managers.GeneAnnotationManager import GeneAnnotationManager
 
 
@@ -19,7 +18,7 @@ class GeneAnnotationImporter(BioDataImporterBase):
         self.__gene_manager = GeneAnnotationManager()
 
 
-    def execute(self):
+    def execute(self) -> ImportationInfo:
         """
         Execute the import data process for gene annotation.
         """

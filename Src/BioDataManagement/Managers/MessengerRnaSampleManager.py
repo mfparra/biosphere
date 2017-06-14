@@ -1,5 +1,7 @@
 from typing import List, Dict
 
+from yaak import inject
+
 from Src.BioDataManagement.CrossCutting.DTOs.MessengerRnaSampleDto import MessengerRnaSampleDto
 from Src.BioDataManagement.CrossCutting.Filters.FeListMessengerRnaSample import FeListMessengerRnaSample
 from Src.Core.Manager.ManagerBase import ManagerBase
@@ -8,6 +10,7 @@ from Src.Core.Manager.ManagerBase import ManagerBase
 class MessengerRnaSampleManager(ManagerBase):
     """description of class"""
 
+    @inject.Param(repository='MessengerRnaSampleRepositoryBase')
     def __init__(self, repository):
         """
         

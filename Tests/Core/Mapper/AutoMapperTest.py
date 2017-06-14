@@ -50,7 +50,22 @@ class AutoMapperTest(unittest.TestCase):
         self.assertEqual(from_obj.id_entrez, to_obj.id)
         self.assertEqual(from_obj.symbol, to_obj.symbol)
         self.assertEqual(from_obj.synonyms_genes, to_obj.synonyms)
-        self.assertTrue(to_obj.locus)
+        self.assertIsNone(to_obj.locus)
+
+    def test_map_with_from_type_class_str_and_mapping(self):
+        auto_mapper = AutoMapper()
+        auto_mapper.create_map('FromTypeClass', ToTypeClass2, {'id': lambda x: x['id'],
+                                                               'synonyms': lambda x: x['synonyms'],
+                                                               'symbol': lambda x: x['symbol'],
+                                                               'locus': lambda x: None})
+
+        from_obj = {'id':10, 'synonyms': [1,2,3,4], 'symbol':'AD1'}
+        to_obj = auto_mapper.map(from_obj, ToTypeClass2, from_obj_class_name='FromTypeClass')
+
+        self.assertEqual(to_obj.id, from_obj['id'])
+        self.assertEqual(to_obj.symbol, from_obj['symbol'])
+        self.assertEqual(to_obj.synonyms, from_obj['synonyms'])
+        self.assertIsNone(to_obj.locus)
 
     def test_map_fail(self):
         auto_mapper = AutoMapper()

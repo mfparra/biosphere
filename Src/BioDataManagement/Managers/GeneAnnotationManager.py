@@ -1,4 +1,5 @@
 from typing import List, Dict
+from yaak import inject
 
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
 from Src.BioDataManagement.CrossCutting.Filters.FeListGeneAnnotation import FeListGeneAnnotation
@@ -8,6 +9,7 @@ from Src.Core.Manager.ManagerBase import ManagerBase
 class GeneAnnotationManager(ManagerBase):
     """description of class"""
 
+    @inject.Param(repository='GeneAnnotationRepositoryBase')
     def __init__(self, repository):
         """
         

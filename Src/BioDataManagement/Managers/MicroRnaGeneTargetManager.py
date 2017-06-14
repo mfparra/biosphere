@@ -1,5 +1,7 @@
 from typing import List, Dict
 
+from yaak import inject
+
 from Src.BioDataManagement.CrossCutting.DTOs.MicroRnaGeneTargetDto import MicroRnaGeneTargetDto
 from Src.BioDataManagement.CrossCutting.Filters.FeListMicroRnaGeneTarget import FeListMicroRnaGeneTarget
 from Src.Core.Manager.ManagerBase import ManagerBase
@@ -8,6 +10,7 @@ from Src.Core.Manager.ManagerBase import ManagerBase
 class MicroRnaGeneTargetManager(ManagerBase):
     """description of class"""
 
+    @inject.Param(repository='MicroRnaGeneTargetRepositoryBase')
     def __init__(self, repository):
         """
         

@@ -1,5 +1,7 @@
 from typing import List, Dict
 
+from yaak import inject
+
 from Src.BioDataManagement.CrossCutting.DTOs.DnaMethylationSampleDto import DnaMethylationSampleDto
 from Src.BioDataManagement.CrossCutting.Filters.FeListDnaMethylationSample import FeListDnaMethylationSample
 from Src.Core.Manager.ManagerBase import ManagerBase
@@ -8,6 +10,7 @@ from Src.Core.Manager.ManagerBase import ManagerBase
 class DnaMethylationSampleManager(ManagerBase):
     """description of class"""
 
+    @inject.Param(repository='DnaMethylationSampleRepositoryBase')
     def __init__(self, repository):
         """
         

@@ -1,12 +1,13 @@
-from Src.BioDataFileManagement.CrossCutting.Contracts.MicroRnaSampleFileRepositoryBase import \
-    MicroRnaSampleFileRepositoryBase
+from yaak import inject
+
 from Src.BioDataFileManagement.CrossCutting.Filters.FeListMicroRnaSampleFile import FeListMicroRnaSampleFile
 
 
 class MicroRnaSampleFileManager(object):
     """description of class"""
 
-    def __init__(self, repository: MicroRnaSampleFileRepositoryBase):
+    @inject.Param(repository='MicroRnaSampleFileRepositoryBase')
+    def __init__(self, repository):
         """
         
         :param repository: 

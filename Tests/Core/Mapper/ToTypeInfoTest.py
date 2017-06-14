@@ -12,6 +12,12 @@ class ToTypeInfoTest(unittest.TestCase):
         self.assertEqual(to_type_info.class_type, ToTypeClass)
         self.assertListEqual(to_type_info.properties, ['id_entrez', 'symbol', 'synonyms_genes'])
 
+        to_type_info = ToTypeInfo(class_type='ToTypeClass', mapping={'id': 10}, no_properties=True)
+
+        self.assertEqual(to_type_info.class_type, 'ToTypeClass',)
+        self.assertEqual(to_type_info.mapping, {'id': 10})
+        self.assertListEqual(to_type_info.properties, [])
+
     def test_instance_fail(self):
         self.assertRaises(ValueError, ToTypeInfo)
 

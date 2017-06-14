@@ -18,7 +18,10 @@ class ToTypeInfo(object):
         if not self.__class_type:
             raise ValueError('The class_type is required.')
 
-        self.__properties = MapperUtils.get_properties_from_class(self.__class_type)
+        if kargs.get('no_properties', True):
+            self.__properties = MapperUtils.get_properties_from_class(self.__class_type)
+        else:
+            self.__properties = []
 
     @property
     def class_type(self) -> int:
