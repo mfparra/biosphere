@@ -23,7 +23,6 @@ class Mapper(object):
             Mapper.__instance = self
 
         self.__mapper = None
-        self.__gene_annotations = self.__get_gene_annotations()
         self.__configure()
 
     @staticmethod
@@ -47,7 +46,7 @@ class Mapper(object):
         self.__mapper.create_map('micro_rna_gene_targets',
                                  MicroRnaGeneTargetDto,
                                  {'micro_rna_symbol': lambda m: m[0],
-                                  'id_entrez_genes': self.__id_entrez_gene(map(lambda g: self.__get_gene_annotations(g.gene_symbol)))})
+                                  'id_entrez_genes': lambda g: self.__get_gene_annotations(g.gene_symbol)})
 
         self.__mapper.create_map(Entities.GeneExpressionLevel,
                                  GeneExpressionLevelDto,
@@ -55,20 +54,25 @@ class Mapper(object):
 
         self.__mapper.create_map(MessengerRnaSampleFile,
                                  MessengerRnaSampleDto,
-                                 {'gene_expression_levels': lambda entity: [self.map(exp, Entities.GeneExpressionLevel)
+                                 {'gene_expression_levels': lambda entity: [self.__mapper.map(exp,
+                                                                                              Entities.GeneExpressionLevel)
                                                                             for exp in entity.exp_levels],
                                   })
 
     def __get_gene_annotations(self):
         gene_manager = GeneAnnotationManager()
-        gene_annotations = gene_manager.get_many(FeListGeneAnnotation(is_paged=False), {'synonyms': 0})
+        fe_gene_annotations = gene_manager.get_many(FeListGeneAnnotation(is_paged=False), {'synonyms': 0})
 
-        if gene_annotations:
-            raise Exception('Error in getting gene annotations. Verify if there are gene annotation stored in the system.')
+        if not fe_gene_annotations.result_list:
+            raise Exception(
+                'Error in getting gene annotations. Verify if there are gene annotation stored in the system.')
 
-        self.__gene_annotations = dict(map(lambda g: (g.id_entrez, g.symbol)))
+        if fe_gene_annotations.result_list:
+            self.__gene_annotations = dict(map(lambda g: (g.id_entrez, g.symbol)), fe_gene_annotations.result_list)
 
     def __get_id_entrez_gene(self, symbol):
-        return next([gene_annotation.id_entrez for gene_annotation in
-                     self.__gene_annotations if gene_annotation.symbol == symbol],
+        if self.__gene_annotations:
+            self.__get_gene_annotations()
+
+        return next([id_entrez for id_entrez, gene_symbol in self.__gene_annotations if gene_symbol == symbol],
                     None)

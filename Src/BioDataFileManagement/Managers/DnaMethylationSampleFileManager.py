@@ -6,7 +6,7 @@ from Src.BioDataFileManagement.CrossCutting.Filters.FeListDnaMethylationSampleFi
 class DnaMethylationSampleFileManager(object):
     """description of class"""
 
-    @inject.param(repository='DnaMethylationSampleFileRepositoryBase')
+    @inject.Param(repository='DnaMethylationSampleFileRepositoryBase')
     def __init__(self, repository):
         """
         

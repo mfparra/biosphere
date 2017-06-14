@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
+from yaak import inject
 
 from Src.BioDataManagement.CrossCutting.Contracts.GeneAnnotationRepositoryBase import GeneAnnotationRepositoryBase
 from Src.BioDataManagement.CrossCutting.DTOs.GeneAnnotationDto import GeneAnnotationDto
@@ -28,7 +29,11 @@ class GeneAnnotationManagerTests(unittest.TestCase):
         self.__fe.result_list = [g.id_entrez for g in self.__gene_annotation_dtos[:-1]]
 
         self.__repository.get_many.return_value  = self.__fe
-        self.__manager = GeneAnnotationManager(self.__repository)
+        inject.provide('GeneAnnotationRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+        self.__manager = GeneAnnotationManager()
+
+    def tearDown(self):
+        inject.clear()
 
     def test_get_many(self):
         fe =  self.__manager.get_many(FeListGeneAnnotation())

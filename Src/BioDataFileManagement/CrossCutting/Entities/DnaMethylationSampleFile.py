@@ -1,7 +1,7 @@
 from typing import List
 
+from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalFileSampleBase import BiologicalFileSampleBase
 from Src.BioDataFileManagement.CrossCutting.Entities.DnaMethylationLevel import DnaMethylationLevel
-from Src.Core.Entities.BiologicalSampleBase import BiologicalFileSampleBase
 
 
 class DnaMethylationSampleFile(BiologicalFileSampleBase):

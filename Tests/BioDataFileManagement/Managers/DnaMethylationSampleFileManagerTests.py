@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from yaak import inject
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.DnaMethylationSampleFileRepositoryBase import \
     DnaMethylationSampleFileRepositoryBase
@@ -42,9 +43,14 @@ class DnaMethylationSampleFileManagerTests(unittest.TestCase):
         self.__repository = Mock(spec=DnaMethylationSampleFileRepositoryBase)
         self.__repository.get.return_value = self.__fe
 
+        inject.provide('DnaMethylationSampleFileRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+
+    def tearDown(self):
+        inject.clear()
+
     def test_get(self):
         filter = FeListDnaMethylationSampleFile()
-        manager = DnaMethylationSampleFileManager(self.__repository)
+        manager = DnaMethylationSampleFileManager()
 
         filter = manager.get(filter)
 

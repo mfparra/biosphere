@@ -25,7 +25,7 @@ class GeneAnnotationImporter(BioDataImporterBase):
         importation_info = None
 
         try:
-            fe_gene_file = self.__gene_file_manager.get(FeSingleGeneAnnotationFile())
+            fe_gene_file = self.__gene_file_manager.get(FeSingleGeneAnnotationFile(file='gene_annotation.txt'))
         except:
             importation_info = ImportationInfo(status=ImportationStatus.Fail,
                                                message='Gene Annotation Importation has failed. See details to more information.',
@@ -40,11 +40,11 @@ class GeneAnnotationImporter(BioDataImporterBase):
             self.__gene_manager.add_many(gene_annotations)
             importation_info = ImportationInfo(status=ImportationStatus.OK,
                                                message='Gene Annotation Importation has been successful. See details to more information.',
-                                               details=['{0}. {1}'.format(ImportationStatus.OK,
+                                               details=['{0}. {1}'.format(ImportationStatus.OK.name,
                                                                           'Gene Annotation has saved in the system.')])
         except:
             importation_info = ImportationInfo(status=ImportationStatus.Fail,
                                                message='Gene Annotation Importation has failed. See details to more information.',
-                                               details=['{0}. {1}'.format(ImportationStatus.Fail, 'Error in saving gene annotaion.')])
+                                               details=['{0}. {1}'.format(ImportationStatus.Fail.name, 'Error in saving gene annotaion.')])
             
         return importation_info

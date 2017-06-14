@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from yaak import inject
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.GeneAnnotationFileRepositoryBase import \
     GeneAnnotationFileRepositoryBase
@@ -23,9 +24,14 @@ class GeneAnnotationManagerTests(unittest.TestCase):
         self.__repository = Mock(spec=GeneAnnotationFileRepositoryBase)
         self.__repository.get.return_value = self.__fe
 
+        inject.provide('GeneAnnotationFileRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+
+    def tearDown(self):
+        inject.clear()
+
     def test_get(self):
         filter = FeSingleGeneAnnotationFile(file='gene_annotation.txt')
-        manager = GeneAnnotationFileManager(self.__repository)
+        manager = GeneAnnotationFileManager()
 
         filter_result = manager.get(filter)
 

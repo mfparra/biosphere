@@ -1,11 +1,12 @@
 import unittest
 from unittest.mock import Mock
+from yaak import inject
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.MicroRnaSampleFileRepositoryBase import \
     MicroRnaSampleFileRepositoryBase
 from Src.BioDataFileManagement.CrossCutting.Entities.MicroRnaExpressionLevel import MicroRnaExpressionLevel
 from Src.BioDataFileManagement.CrossCutting.Entities.MicroRnaSampleFile import MicroRnaSampleFile
-from Src.BioDataFileManagement.Managers.MessengerRnaSampleFileManager import MessengerRnaSampleFileManager
+from Src.BioDataFileManagement.Managers.MicroRnaSampleFileManager import MicroRnaSampleFileManager
 from Src.BioDataManagement.CrossCutting.Filters.FeListGeneAnnotation import FeListGeneAnnotation
 
 
@@ -42,8 +43,13 @@ class MicroRnaSampleFileManagerTests(unittest.TestCase):
         self.__repository = Mock(spec=MicroRnaSampleFileRepositoryBase)
         self.__repository.get.return_value = self.__fe
 
+        inject.provide('MicroRnaSampleFileRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+
+    def tearDown(self):
+        inject.clear()
+
     def test_get(self):
-        manager = MessengerRnaSampleFileManager(self.__repository)
+        manager = MicroRnaSampleFileManager()
         filter = manager.get(FeListGeneAnnotation())
 
         self.assertTrue(len(filter.result_list) == 4)

@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock, patch
+from yaak import inject
 
 from Src.BioDataManagement.CrossCutting.Contracts.MicroRnaSampleRepositoryBase import \
     MicroRnaSampleRepositoryBase
@@ -69,7 +70,11 @@ class MessemgerRnaSampleManagerTests(unittest.TestCase):
         self.__fe.result_list = [m.patient_id for m in self.__mirna_sample_dto[:-1]]
 
         self.__repository.get_many.return_value  = self.__fe
+        inject.provide('MicroRnaSampleRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
         self.__manager = MicroRnaSampleManager(self.__repository)
+
+    def tearDown(self):
+        inject.clear()
 
     def test_get_many(self):
         fe =  self.__manager.get_many(FeListMicroRnaSample())

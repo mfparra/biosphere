@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from yaak import inject
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.MessengerRnaSampleFileRepositoryBase import \
     MessengerRnaSampleFileRepositoryBase
@@ -41,6 +42,11 @@ class MessengerRnaSampleFileManagerTests(unittest.TestCase):
 
         self.__repository = Mock(spec=MessengerRnaSampleFileRepositoryBase)
         self.__repository.get.return_value = self.__fe
+
+        inject.provide('MessengerRnaSampleFileRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+
+    def tearDown(self):
+        inject.clear()
 
     def test_get(self):
         filter = FeListMessengerRnaSampleFile()

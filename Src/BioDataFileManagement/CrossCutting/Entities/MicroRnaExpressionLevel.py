@@ -1,7 +1,7 @@
 from Src.BioDataFileManagement.CrossCutting.Entities.BiologicalMeasureType import BiologicalMeasureType
 
 
-class MicroRnaExpressionLevel(BiologicalMeasureTypeBase):
+class MicroRnaExpressionLevel:
     """description of class"""
 
     def __init__(self, **kargs):

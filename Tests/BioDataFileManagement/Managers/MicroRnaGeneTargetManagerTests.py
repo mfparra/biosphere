@@ -1,5 +1,6 @@
 import unittest
 from unittest.mock import Mock
+from yaak import inject
 
 from Src.BioDataFileManagement.CrossCutting.Contracts.MicroRnaGeneTargetFileRepositoryBase import \
     MicroRnaGeneTargetFileRepositoryBase
@@ -42,6 +43,11 @@ class MicroRnaGeneTargetManagerTests(unittest.TestCase):
 
         self.__repository = Mock(spec=MicroRnaGeneTargetFileRepositoryBase)
         self.__repository.get.return_value = self.__fe
+
+        inject.provide('MicroRnaGeneTargetFileRepositoryBase', lambda: self.__repository, scope=inject.Scope.Application)
+
+    def tearDown(self):
+        inject.clear()
 
     def test_get(self):
         filter = FeSingleMicroRnaGeneTargetFile(file='microrna_gene_target.txt')
